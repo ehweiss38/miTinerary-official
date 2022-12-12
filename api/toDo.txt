@@ -1,0 +1,11 @@
+To Do:
+    For cities with same name, there is error when generating distance.
+    Uses same city to calculate distance, so it is 0
+
+    Improve assignment of stops. RN last legs are much longer due to runnning out of stops
+
+    Add overflow wrap to text
+
+    Long term: Work to improve detection of oceans
+
+    Set up mixin for extra places font sizing

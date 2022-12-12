@@ -1,0 +1,19 @@
+Plan: divide distance by number of stops;calculate cities within that radius. Grab cities with 30 largest populations(sort according to size using merge sort).
+Check direction of city relative to start and end until 5 canidate cities along direction of trip
+Cross reference cities with tourism API for sites.Potentially check flights to ensure two points are reachable
+Select the city that has most sites of those 5(also accessible)
+
+Update distance relative to stop, calculate.
+
+Alternatively: Offer choice of 3 sites, have them choose, and then recalculate. Provide schema to weight against each other
+
+If city provided, trewat that as initialendpoint, then continue to final destination
+
+One possibility should be driving, one flying, one a mix of both. Only real difference is airports
+
+maybe use airport api to not isolate self
+
+Could backtrack if it finds itself in a dead end. That would use a shit ton of cpu though and defeats the select as you go
+
+Could generate all at once and then give alternatives after. That is more passive though and significantly harder.
+
