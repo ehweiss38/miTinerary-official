@@ -35,10 +35,7 @@ let mid=[]
 let ready=[]
 
 router.get("/", (req, res)=>{
-    console.log(mid,ordered)
-    res.send(
-        form()
-    );
+    console.log('howdy')
 })
 router.get("/:vals/:states/confirm",async(req,res)=>{
     mid=[]
