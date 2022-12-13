@@ -36,6 +36,7 @@ let ready=[]
 
 router.get("/", (req, res)=>{
     console.log('howdy')
+    return
 })
 router.get("/:vals/:states/confirm",async(req,res)=>{
     mid=[]
