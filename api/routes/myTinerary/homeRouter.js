@@ -36,6 +36,7 @@ let ready=[]
 
 router.get("/", (req, res)=>{
     console.log('howdy')
+    res.send(<h1>'hi'</h1>)
     return
 })
 router.get("/:vals/:states/confirm",async(req,res)=>{
