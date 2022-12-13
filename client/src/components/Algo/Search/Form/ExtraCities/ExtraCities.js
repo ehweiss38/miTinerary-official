@@ -9,10 +9,17 @@ class ExtraCities extends React.Component{
     
 
     updateText=(val,loc)=>{
+        let use=val
         if(loc==='city'){
-            this.setState({cityText:val})
+            if(this.state.cityText.length===0){
+                use=val.toUpperCase()
+            }
+            this.setState({cityText:use})
         }
         if(loc==="country"){
+            if(this.state.countryText.length===0){
+                use=val.toUpperCase()
+            }
             this.setState({countryText:val})
         }
     }

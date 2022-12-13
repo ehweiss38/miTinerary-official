@@ -8,14 +8,24 @@ class AlgoSearchHome extends React.Component{
     //forgot to pass to distance to confirmation
     state={display:'endpoints',startCity:"",startCountry:"",endCity:"",endCountry:"", stops:"",sState:null,eState:null,missing:false}
     setSearch=(value,targ)=>{
+        let use=value
         if(targ==='startCity'){
-            this.setState({startCity:value})
+            if(this.state.startCity.length===0){
+                use=use.toUpperCase()
+            }
+            this.setState({startCity:use})
         }
         if(targ==='startCountry'){
-            this.setState({startCountry:value})
+            if(this.state.startCountry.length===0){
+                use=use.toUpperCase()
+            }
+            this.setState({startCountry:use})
         }
         if(targ==='endCity'){
-            this.setState({endCity:value})
+            if(this.state.endCity.length===0){
+                use=use.toUpperCase()
+            }
+            this.setState({endCity:use})
         }
         if(targ==='endCountry'){
             this.setState({endCountry:value})
