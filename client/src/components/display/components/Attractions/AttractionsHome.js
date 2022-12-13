@@ -73,7 +73,7 @@ const AttractionsHome=(props)=>{
     }
     return(
         <div className="card">
-            <button onClick={()=>{props.go(false);save()}}> Go back</button>
+            <a onClick={()=>{props.go(false);save()}} ><i class="fa-solid fa-arrow-left has-text-primary" style={{fontSize:20,marginLeft:15,marginTop:15}}></i></a>
             <div style={hideLoaded}>
                 <i class="fa-solid fa-spinner"></i>
             </div>

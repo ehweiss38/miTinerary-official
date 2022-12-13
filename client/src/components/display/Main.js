@@ -125,7 +125,7 @@ const Main=(props)=>{
                     <Sidebar go={go} selected={selected} trip={tripArr} highlight={highlight} disDur={mainDisDur}/>
                 </div>
             </div>
-            <button onClick={(save)}>Save</button>
+            <button className="button is-primary buttonPos"onClick={(save)} >Save this trip</button>
             {messageDisp}
         </div>
     )
