@@ -4,6 +4,7 @@ module.exports=(coords)=>{
     //note: Sourced from geeksforgeeks 
     function distance(lat1,
         lat2, lon1, lon2){
+            console.log(lat1,lat2,lon1,lon2)
         // The math module contains a function
         // named toRadians which converts from
         // degrees to radians.
@@ -29,7 +30,9 @@ module.exports=(coords)=>{
         return(c * r);
     }
     try{
+        console.log(coords)
     const calculatedDistance=distance(coords[0]['latitude'],coords[1]['latitude'],coords[0]['longitude'],coords[1]['longitude'])
+    console.log('calculated',calculatedDistance)
     return calculatedDistance
     }catch(err){
 

@@ -4,9 +4,17 @@ import axios from "axios"
 
 class ExtraCities extends React.Component{
     //annoying to convert obj to arr. I think now the most straightforward approach
-    state={stopsSelected:[], cityText:"", countryText:"",stateText:""}
+    state={stopsSelected:[], cityText:"", countryText:"",stateText:null}
 
-    
+    componentDidUpdate(){
+        const murica={'USA':1,"US":1,"United States of America":1,"America":1,"United States":1}
+        if(this.state.stateText===null&&murica[this.state.countryText]){
+            this.setState({stateText:""})
+        }
+        if(!murica[this.state.countryText]&&this.state.stateText!==null){
+            this.setState({stateText:null})
+        }
+    }
 
     updateText=(val,loc)=>{
         let use=val
@@ -22,6 +30,10 @@ class ExtraCities extends React.Component{
             }
             this.setState({countryText:val})
         }
+        if(loc==='state'){
+            use=use.toUpperCase()
+            this.setState({stateText:val})
+        }
     }
 
     //add variable for constant spacing relative to max number of stops
@@ -33,7 +45,7 @@ class ExtraCities extends React.Component{
             return
             //add error no more cities
         }
-        const found=await this.confirm([this.state.cityText,this.state.countryText,this.state.stopsSelected.length])
+        const found=await this.confirm([this.state.cityText,this.state.countryText,this.state.stopsSelected.length,this.state.stateText])
         //still have to be validated
         //wont work rn
 
@@ -68,7 +80,7 @@ class ExtraCities extends React.Component{
 
     async confirm(valPairs){
         let info
-        let qs=valPairs[0].trim()+'_'+valPairs[1].trim()+"_"+valPairs[2]
+        let qs=valPairs[0].trim()+'_'+valPairs[1].trim()+"_"+valPairs[2]+"_"+valPairs[3]
         try{
            info=await axios.get(`http://localhost:7000/${qs}/extra`)
            console.log('received', info)
@@ -84,6 +96,8 @@ class ExtraCities extends React.Component{
     //will add Search to validate
     //text can extend out
     render(){
+        const stateBox=this.state.stateText!==null?<input style={{marginLeft:10,width:75}} className="input is-danger" id="stateText" type="text" value={this.state.stateText} onChange={(e)=>{this.updateText(e.target.value,'state')}} name="state" placeholder="State"/>:""
+        console.log('box', stateBox)
         return(
         <div className="card extraBox">
             <div style={{height:150}} className="center">
@@ -100,6 +114,7 @@ class ExtraCities extends React.Component{
                         <input style={{width:240}} className="input is-danger" id="startpoint" type="text" value={this.state.cityText} onChange={(e)=>{this.updateText(e.target.value,'city')}} name="city" placeholder="City"/>
                         <span style={{padding:5}}></span>
                         <input style={{width:240}} size="50" className="input is-danger" id="startCountry" type="text" value={this.state.countryText} onChange={(e)=>{this.updateText(e.target.value,'country')}} name="country" placeholder="Country"/>
+                        {stateBox}
                     </div>
                     <div style={{marginLeft:1}}>
                         <input style={{width:110}}className="button is-primary" type="submit" value="Add to trip" onClick={(e)=>{this.addStop(e)}}/>

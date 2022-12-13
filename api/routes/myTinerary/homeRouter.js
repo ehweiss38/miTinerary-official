@@ -124,8 +124,8 @@ router.get("/:extraCities/extra",async(req,res)=>{
 const advInfo=(foundCities)=>{
     console.log(foundCities)
     coords=coordify(foundCities)
-    miles=calcDistance(coords)
-    return miles
+    km=calcDistance(coords)
+    return km
 }
 router.get("/calc/:foundCities",async(req,res)=>{
     const foundCities=req.params.foundCities

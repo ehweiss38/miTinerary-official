@@ -10,6 +10,7 @@ class AlgoSearchHome extends React.Component{
     setSearch=(value,targ)=>{
         let use=value
         if(targ==='startCity'){
+            console.log(this.state.startCity[this.state.startCity.length-1])
             if(this.state.startCity.length===0){
                 use=use.toUpperCase()
             }
@@ -28,16 +29,21 @@ class AlgoSearchHome extends React.Component{
             this.setState({endCity:use})
         }
         if(targ==='endCountry'){
-            this.setState({endCountry:value})
+            if(this.state.endCountry.length===0){
+                use=use.toUpperCase()
+            }
+            this.setState({endCountry:use})
         }
         if(targ==='stops'){
             this.setState({stops:value,missing:false})
         }
         if(targ==='sState'){
-            this.setState({sState:value})
+            use=use.toUpperCase()
+            this.setState({sState:use})
         }
         if(targ==='eState'){
-            this.setState({eState:value})
+            use=use.toUpperCase()
+            this.setState({eState:use})
         }
     }
     

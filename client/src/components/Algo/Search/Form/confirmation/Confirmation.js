@@ -6,6 +6,7 @@ const Confirmation=(props)=>{
     const commafy=()=>{
 
     }
+    console.log(props.distance)
     return(
         <div className="card conBox center" >
             <div className="columns confirmation">
