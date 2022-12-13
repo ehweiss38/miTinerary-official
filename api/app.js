@@ -15,8 +15,6 @@ var photosRouter=require('./routes/myTinerary/photos')
 
 const mongoose=require('mongoose')
 
-require('dotenv').config()
-
 var app = express();
 
 mongoose.connect('mongodb://localhost:27017/usersdb',
@@ -66,5 +64,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen()
 
 module.exports = app;
