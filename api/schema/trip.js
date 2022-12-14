@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+console.log('trip')
 const tripSchema = new mongoose.Schema(
     {
         name:{
