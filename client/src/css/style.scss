@@ -6,16 +6,22 @@ body{
     height:25vh
 }
 .cardS{
-    min-width: 650px;
+    min-width: 500px;
     margin-top: 20vh;
-    width: 45vw;
-    margin-left: 28vw;
+    width: 600px;
+    max-width: 700px;
+    margin-left: 28.75vw;
     border-radius: 2%;
     margin-right:25vw;
     .card-contentS{
         display: flex;
         justify-content: left;
     }
+}
+.endField{
+    max-width: 650px;
+    width: 575px;
+    min-width: 550px;
 }
 .confirmation{
     min-width: 900px;
@@ -137,4 +143,8 @@ nav{
 .buttonPos{
     margin-left: 42vw;
     margin-bottom: 10px;
+}
+.endpointsButton{
+    margin-left: 210px;
+    position: relative;
 }
