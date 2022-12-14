@@ -19,7 +19,7 @@ var app = express();
 
 require('dotenv').config()
 
-mongoose.connect('mongodb://localhost:27017/usersdb',
+mongoose.connect('mongodb+srv://ethan:JSxKPj0Ygxh1M3eP@mitineraryserver.hkrwc.mongodb.net/?retryWrites=true&w=majority',
   {
     useNewUrlParser: true
   }
