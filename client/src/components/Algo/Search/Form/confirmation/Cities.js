@@ -1,5 +1,5 @@
 import React from "react";
-const photos=require("../../../helpers/photos");
+//const photos=require("../../../helpers/photos");
 
 const Cities=(props)=>{
 
