@@ -36,7 +36,7 @@ let ready=[]
 
 router.get("/", (req, res)=>{
     console.log('howdy')
-    //--tres.send('finally')
+    res.send('finally')
     return
 })
 router.get("/:vals/:states/confirm",async(req,res)=>{
@@ -342,6 +342,7 @@ router.get('/sync/:index/:qs',async(req,res)=>{
 })
 
 router.get("/tripSave/:id/:tripId",async(req,res)=>{
+    console.log('trip save')
     const userID=req.params.id
     const tripId=req.params.tripId
     console.log(userID,tripId)
@@ -376,6 +377,7 @@ router.get("/tripSave/:id/:tripId",async(req,res)=>{
 })
 
 router.get('/select/:id',async(req,res)=>{
+    console.log("Trip find")
     const tripId=req.params.id
     const trip=await Trip.findOne({_id:tripId})
     console.log('trip',trip)
