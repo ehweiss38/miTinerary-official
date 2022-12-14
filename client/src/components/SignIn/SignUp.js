@@ -9,7 +9,7 @@ class SignUp extends React.Component{
             return
         }
         console.log('sending')
-        const status=await axios.post('http://localhost:7000/auth/signup',{
+        const status=await axios.post('https://mitinerary-js.herokuapp.com/auth/signup',{
             username:this.state.username,password:this.state.password
         })
         if(status.data._id){

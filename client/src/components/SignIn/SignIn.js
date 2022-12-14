@@ -12,7 +12,7 @@ const SignIn=(props)=>{
             return
         }
         console.log('sending')
-        const status=await axios.post('http://localhost:7000/auth/signin',{
+        const status=await axios.post('https://mitinerary-js.herokuapp.com/auth/signin',{
             username:username,password:password
         })
         console.log('status',status)

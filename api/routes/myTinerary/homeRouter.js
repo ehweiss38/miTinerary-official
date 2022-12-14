@@ -306,7 +306,7 @@ router.get('/sync/:index/:qs',async(req,res)=>{
         })
     }
     const active=ready[index]
-    const retrieved=await axios.get('http://localhost:7000/attractions/share')
+    const retrieved=await axios.get('https://mitinerary-js.herokuapp.com/share')
     console.log('retrieved',retrieved.data.length)
     //need to iprove fault tolerance
 

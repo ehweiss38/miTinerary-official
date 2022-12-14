@@ -82,7 +82,7 @@ class ExtraCities extends React.Component{
         let info
         let qs=valPairs[0].trim()+'_'+valPairs[1].trim()+"_"+valPairs[2]+"_"+valPairs[3]
         try{
-           info=await axios.get(`http://localhost:7000/${qs}/extra`)
+           info=await axios.get(`https://mitinerary-js.herokuapp.com/${qs}/extra`)
            console.log('received', info)
         }catch(err){
             info=null

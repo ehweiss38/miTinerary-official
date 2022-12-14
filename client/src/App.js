@@ -17,7 +17,7 @@ function App() {
 
   useEffect(()=>{
     (async()=>{
-      let status=await axios.get('http://localhost:7000/auth/validate')
+      let status=await axios.get('https://mitinerary-js.herokuapp.com/auth/validate')
       console.log(status.data)
       setSignIn(status.data._id)
     })()
