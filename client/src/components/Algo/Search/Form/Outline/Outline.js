@@ -44,7 +44,7 @@ const Outline=(props)=>{
                     <span style={{width:30}}/>
                     <button style={{visibility:index===outlinedArr.length-2?'hidden':'visible'}} onClick={()=>{scroll(1)}}><i className="fa-solid fa-arrow-right"></i></button>
                 </div>
-                <div style={{marginTop:20}}>
+                <div style={{marginTop:27}}>
                     <form onSubmit={(e)=>{e.preventDefault();props.launch()}} >
                         <div class="control" style={{marginLeft:20,marginTop:-30}}>
                             <label class="radio">

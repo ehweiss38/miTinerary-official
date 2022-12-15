@@ -159,7 +159,7 @@ module.exports=async(outline,mode)=>{
                     for(let i=0;i<larger.length;i++){
                         /*if(sameCountry){
                             //if(larger[i].country!==useCountry)
-                            continue
+                            continuexf
                         }*/
                         if(selected.population<larger[i].population)break
                         selected=larger[i]
