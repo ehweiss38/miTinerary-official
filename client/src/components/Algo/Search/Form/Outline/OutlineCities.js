@@ -11,7 +11,6 @@ const OutlineCities=(arr)=>{
                         <h3>{""+(i+1)+"."}</h3>
                         <h2>{stop['name']+","}</h2><h3>{stop['country']}</h3>
                         <h4> Population:{stop['population']}</h4>
-                        <h4> Distance to Next Stop:{stop['distanceNext']}</h4>
                     </div>
                 </div>
             </div>

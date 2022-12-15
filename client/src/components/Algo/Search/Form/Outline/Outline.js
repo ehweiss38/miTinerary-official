@@ -46,7 +46,7 @@ const Outline=(props)=>{
                 </div>
                 <div style={{marginTop:20}}>
                     <form onSubmit={(e)=>{e.preventDefault();props.launch()}} >
-                        <div class="control" style={{marginLeft:300,marginTop:-30}}>
+                        <div class="control" style={{marginLeft:20,marginTop:-30}}>
                             <label class="radio">
                                 <input type="radio" name="answer" onChange={()=>{props.setMode('eq')}}checked={props.mode==='eq'}/>
                                 Equidistant Cities

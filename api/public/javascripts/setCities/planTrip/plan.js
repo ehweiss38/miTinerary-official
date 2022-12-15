@@ -166,7 +166,7 @@ module.exports=async(outline,mode)=>{
                         break
                     }
                     console.log('selected',selected,'node.next',node.next)
-                    detour=calcDistance([{latitude:selected.latitude,longitude:sorted.longitude},{latitude:node.next.val.latitude,longitude:node.next.val.longitude}])
+                    detour=calcDistance([{latitude:selected.val.latitude,longitude:selected.val.longitude},{latitude:node.next.val.latitude,longitude:node.next.val.longitude}])
                 }
                 let valObj=valPrep(selected.geonameid,selected.country.code,selected.name,selected.population,selected.latitude,selected.longitude)
                 console.log('INDEX:',outline.length,index)

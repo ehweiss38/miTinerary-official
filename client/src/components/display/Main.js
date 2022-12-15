@@ -101,7 +101,7 @@ const Main=(props)=>{
     }
 
     const messageDisp=message?
-    <h3 style={{color:'red'}}>{message}</h3>:''
+    <h3 className="messagePos" style={{color:'red'}}>{message}</h3>:''
 
 
     if(visit){
@@ -113,7 +113,7 @@ const Main=(props)=>{
         )
     }
     return(
-        <div className="card background" style={{margin:50}}>
+        <div className="card background" style={{marginLeft:50,marginRight:50,marginBottom:10,marginTop:30}}>
             <div className="columns" style={{opacity:1}}>
                 <div className="column is-three-fifths">
                     {!tripArr.length?
