@@ -161,7 +161,7 @@ module.exports=async(outline,mode)=>{
                             //if(larger[i].country!==useCountry)
                             continuexf
                         }*/
-                        if(selected.population<larger[i].population)break
+                        if(selected.population>larger[i].population)break
                         selected=larger[i]
                         break
                     }

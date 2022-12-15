@@ -222,6 +222,7 @@ router.get("/plan",async(req,res)=>{
         //worth looking into, maybe compare to shortest dist instead
         while(assigned===0||(tempDistance*(it/(it+1))>=nextDist/2&&avStops)){
             console.log('in math')
+            console.log('avStops',tempDistance*(it/(it+1)),nextDist/2&&avStops)
             curr.distStops?curr.distStops++:curr.distStops=1
             avStops--
             tempDistance*=(it/(it+1))
