@@ -7,6 +7,7 @@ const util = require('util');
 const scrypt=util.promisify(crypto.scrypt);
 const {errorHandling}=require('./validators/errors')
 const router=express.Router()
+const cookieParser=require('cookie-parser')
 
 
 let signIn=null

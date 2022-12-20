@@ -10,7 +10,6 @@ import './css/style.css'
 
 
 function App() {
-  console.log('mounting')
   const [trip,setTrip]=useState(null)
   //maybe should move trip id here
   const [display,setDisplay]=useState('home')

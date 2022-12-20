@@ -71,4 +71,6 @@ app.listen(process.env.PORT || '7000',()=>{
   console.log('Connected!')
 })
 
+//app.get(req,res)
+
 module.exports = app;

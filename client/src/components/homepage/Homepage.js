@@ -14,7 +14,7 @@ class Homepage extends React.Component{
                     Travel off the beaten path
                     </p>
                     </div>
-                    <Buttons setAlgo={this.props.setAlgo}/>
+                    <Buttons/>
                 </div>
             </section>
 
