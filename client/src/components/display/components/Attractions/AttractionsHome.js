@@ -56,7 +56,7 @@ const AttractionsHome=(props)=>{
 
     }
     const hideLoaded=!loading?{display:'none'}:{}
-    const showLoaded=loading?{display:'none'}:{}
+    const showLoaded=loading?{display:'none'}:{marginLeft:55}
     //could just put ids instead to improve speed above. Want to wait till i have db set up though before deciding
     const add=(place,category)=>{
         console.log('add called')
