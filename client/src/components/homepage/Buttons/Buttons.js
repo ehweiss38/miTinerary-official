@@ -1,14 +1,15 @@
 import React from "react";
 
 const Buttons=(props)=>{
-    const changeURL=(e)=>{
+    /*const changeURL=(e)=>{
         e.preventDefault()
         window.history.pushState({},'','/algo')
         return
     }
+    */
     return(
         <div>
-            <button onClick={changeURL}style={{padding:15, marginRight:40}}className="button is-danger is-inverted is-outlined">Let's go!</button>
+            <button onClick={()=>props.setAlgo()} style={{padding:15, marginRight:40}}className="button is-danger is-inverted is-outlined">Let's go!</button>
         </div>
     )
 

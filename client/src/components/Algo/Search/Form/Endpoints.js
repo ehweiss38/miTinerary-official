@@ -17,8 +17,11 @@ const Endpoints=(props)=>{
             <div className="card cardS" >
                 <div className="card-content card-contentS">
                     <form action="/" onSubmit={props.endPointSubmit}  style={{marginLeft:17}}>
+                        <div className="center" style={{marginLeft:-35, marginBottom:15}}>
+                            <h1 className="headedText">Step 1. Enter your Starting and Ending Cities</h1>
+                        </div>
                         <label>Starting City   </label>
-                        <div className="field endField" style={{height:60}}>
+                        <div className="field endField" style={{height:37}}>
                             <input style={{width:250}} className="input is-danger" id="startpoint" type="text" value={props.locations.startCity} onChange={(e)=>{props.setSearch(e.target.value,'startCity')}} name="startpoint" placeholder="Starting City"/>
                             <span style={{padding:5}}></span>
                             <input style={{width:250}} size="50" className="input is-danger" id="startCountry" type="text" value={props.locations.startCountry} onChange={(e)=>{props.setSearch(e.target.value,'startCountry')}} name="startCountry" placeholder="Starting Country"/>
@@ -27,7 +30,7 @@ const Endpoints=(props)=>{
                         </div>
                         <br/>
                         <label>Ending City</label>
-                        <div className="field endField" style={{height:60}}>
+                        <div className="field endField" style={{height:37}}>
                             <input style={{width:250}} className="input is-danger" id="endpoint" type="text" value={props.locations.endCity} onChange={(e)=>{props.setSearch(e.target.value,'endCity')}} name="endpoint" placeholder="Ending City"/>
                             <span style={{padding:5}}></span>
                             <input style={{width:250}} className="input is-danger" id="endCountry" type="text"value={props.locations.endCountry} onChange={(e)=>{props.setSearch(e.target.value,'endCountry')}} name="endCountry" placeholder="Ending Country"/>
