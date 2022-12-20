@@ -13,7 +13,7 @@ const Retrieve=(props)=>{
             console.log('running')
             const qs=props.loc['latitude']+"_"+props.loc['longitude']
             console.log('search')
-            const response=await axios.get((`https://mitinerary-js.herokuapp.com/${props.type}/${qs}`))
+            const response=await axios.get((`https://mitinerary-js.herokuapp.com/attractions/${props.type}/${qs}`))
             console.log('response')
             controller=null
             setList(response.data)
