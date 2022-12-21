@@ -1,14 +1,15 @@
 import React from "react";
 
 const Link=({href,children})=>{
-    changeURL=(e)=>{
+    const changeURL=(e)=>{
         e.preventDefault()
         window.history.pushState({},'',href)
+        window.dispatchEvent(new Event('popstate'))
         return
     }
 
     return(
-        <a href={href}>
+        <a className="navbar-item is-size-4" href={href} onClick={changeURL}>
             {children}
         </a>
     )

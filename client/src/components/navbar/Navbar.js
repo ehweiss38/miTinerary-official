@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
 import Portal from "../Portal";
 import SignUpControl from "../SignIn/SignUpControl";
+import Link from "../Link";
 
 const Navbar=(props)=>{
     const [isOn, setOn] = useState(false);
@@ -54,12 +55,12 @@ const Navbar=(props)=>{
                 </div>
                 <div id="navMenu" className="navbar-menu">
                     <div className="navbar-end">
-                        <a className="navbar-item is-size-4" onClick={()=>{props.setAlgo()}}>
+                        <Link href={"/algo"}>
                         Create Trip
-                        </a>
-                        <a className="navbar-item is-size-4" onClick={()=>{props.setMulti()}}>
+                        </Link>
+                        <Link href={'/saved'}>
                         My Trips
-                        </a>
+                        </Link>
                     </div>
                     <div className="navbar-end">
                         <div className="navbar-item">

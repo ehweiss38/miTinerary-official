@@ -6,6 +6,7 @@ import Main from "./components/display/Main";
 import Multi from "./components/Multi/Multi"
 import Background from './images/background_map.jpeg'
 import axios from "axios";
+import Router from "./components/Router";
 import './css/style.css'
 
 
@@ -14,6 +15,7 @@ function App() {
   //maybe should move trip id here
   const [display,setDisplay]=useState('home')
   const [signIn,setSignIn]=useState(null)
+
 
   useEffect(()=>{
     (async()=>{
@@ -27,12 +29,16 @@ function App() {
     if(trip){
       console.log('trip received')
       console.log(trip)
-      setDisplay("tripDisplay")
+      window.history.pushState({},'','/display')
+      window.dispatchEvent(new Event('popstate'))
     }else{
       return
     }
   },[trip])
 
+  useEffect(()=>{
+
+  })
   const returnHome=()=>{
     setDisplay('home')
   }
@@ -55,7 +61,7 @@ function App() {
 
 
   let current
-
+/*
   if(display==='home'){
     current=<Homepage setAlgo={setAlgo}/>
   }else if(display==='algo'){
@@ -65,10 +71,22 @@ function App() {
   }else if(display==='multi'){
     current=<Multi signIn={signIn} receiveTrip={receiveTrip}/>
   }
+  */
   return(
     <div style={{backgroundImage:`url(${Background})`,height:750,backgroundSize:1500,backgroundPositionX:0,backgroundPositionY:-220,marginBottom:-10}}>
       <Navbar signedIn={signedIn} signIn={signIn} setMulti={setMulti} setAlgo={setAlgo} returnHome={returnHome}/>
-      {current}
+      <Router path='/'>
+        <Homepage setAlgo={setAlgo}/>
+      </Router>
+      <Router path='/algo'>
+        <AlgoHome receiveTrip={receiveTrip}/>
+      </Router>
+      <Router path='/display'>
+        <Main signIn={signIn} trip={trip} receiveTrip={receiveTrip}/>
+      </Router>
+      <Router path='/saved'>
+        <Multi signIn={signIn} receiveTrip={receiveTrip}/>
+      </Router>
     </div>
   )
 }
