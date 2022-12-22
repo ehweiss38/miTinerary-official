@@ -35,7 +35,7 @@ const sessionSchema = new mongoose.Schema(
             required:false
         },
         tripN:{
-            type:Object.
+            type:Object,
             required:false
         },
         mid:{
