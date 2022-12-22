@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
-app.use('/',homeRouter);
+app.use('/home',homeRouter);
 app.use('/attractions',attractionsRouter);
 app.use('/auth',signInRouter);
 app.use('/saved',savedRouter)
@@ -66,6 +66,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.get("/",(req,res)=>{
+  const cookie=Math.random(1000000000)+1
+  res.cookie('session',cookie,{
+    maxAge:3600000000,
+    secure:true
+  })
+})
 
 app.listen(process.env.PORT || '7000',()=>{
   console.log('Connected!')

@@ -57,6 +57,3 @@ const stopSchema=new mongoose.Schema(
     }
 )
 */
-const tripDB = mongoose.model("Trip", tripSchema);
-//const stopDB=mongoose.model('Stop',stopSchema)
-module.exports = tripDB

@@ -16,34 +16,34 @@ const tripNaming=require('../routeHelpers/tripNaming/tripNaming')
 
 const User=require('../../schema/users')
 const Trip=require('../../schema/trip')
+const Session=require('../../schema/session')
 
 const router=express.Router()
 
 //some redundancy here methinks
-let foundCities
 let miles
 let stops
 let coords
-let start
-let end
-let startObj
-let endObj
-let distanceUse
+//let startObj
+//let endObj
+//let distanceUse
 let tripN
 let ordered=[]
 let mid=[]
 let ready=[]
 
-router.get("/", (req, res)=>{
+/*
+router.get("/", (req, res)=>
     console.log('howdy')
     res.send('finally')
     return
 })
+*/
 router.get("/:vals/:states/confirm",async(req,res)=>{
-    mid=[]
-    ordered=[]
-    ready=[]
-    console.log(mid,ordered)
+    const session=req.cookies.session
+   // mid=[]
+   // ordered=[]
+   // ready=[]
     console.log('confirm is running')
     console.log(req.params.vals)
     const queryString=req.params.vals
@@ -69,7 +69,7 @@ router.get("/:vals/:states/confirm",async(req,res)=>{
     let sC=errorCatch(startCountry)
     console.log(sC)
     //add cap check to error check
-    end=endCity
+    let end=endCity
     let eC=errorCatch(endCountry)
     if(stopsReq){
         stops=stopsReq //save to database
@@ -77,7 +77,7 @@ router.get("/:vals/:states/confirm",async(req,res)=>{
         stops=0
     }
     //onsole.log(sC,eC)
-    foundCities=await index([sC,eC],[start,end],[sState,eState]) 
+    const foundCities=await index([sC,eC],[start,end],[sState,eState]) 
     console.log('start:',start,"end:",end)   
     console.log('found',foundCities)
     if(typeof foundCities==='number'){
@@ -85,17 +85,30 @@ router.get("/:vals/:states/confirm",async(req,res)=>{
         return
     }
     console.log(foundCities[start],foundCities[end])
-    startObj=foundCities[start]
-    endObj=foundCities[end]
+    const startObj=foundCities[start]
+    const endObj=foundCities[end]
     console.log(startObj,endObj)
     console.log('post IDX')
-    distanceUse=advInfo(foundCities)
+    const distanceUse=advInfo(foundCities)
     console.log('adv complete')
+    //initializing all arrays here for consistency and simplicity
+    const newSession= new Session({_id:session,endObj:endObj,startObj:startObj,distanceUse:distanceUse,mid:[],ordered:[],ready:[]})
+    try{
+        await newSession.save()
+    }catch(error){
+        console.log('saving error',error)
+    }
+    
     res.send(
         [foundCities,distanceUse]
     )
 })
 router.get("/:extraCities/extra",async(req,res)=>{
+    //mid added above
+
+    //retrieving here offers more flexibilty down the line
+    const{mid}=await Session.findOne({_id:req.cookies.session})
+
     //could be written as reuable but idk if it is even worth it
     console.log('extraaaa',req.params.extraCities)
     const queryString=req.params.extraCities
@@ -115,6 +128,11 @@ router.get("/:extraCities/extra",async(req,res)=>{
     mid.push(info)
     console.log('here is info',info)
     console.log('mid',mid)
+    try{
+        await Session.updateOne({_id:req.cookies.session},{$set:{"mid":mid}})
+    }catch(error){
+        console.log('save Error',Error)
+    }
     res.send(
         info
     )
@@ -126,6 +144,7 @@ const advInfo=(foundCities)=>{
     km=calcDistance(coords)
     return km
 }
+/*
 router.get("/calc/:foundCities",async(req,res)=>{
     const foundCities=req.params.foundCities
     coords=coordify(foundCities)
@@ -134,12 +153,14 @@ router.get("/calc/:foundCities",async(req,res)=>{
     //console.log(miles)
     //res.send(distance(miles))
 })
+*/
 
 
 //to work with multiple cities, has to sort by distance from first city. Also, has to adjust validity measures accordingly
 
 router.get("/:qs/order", async(req,res)=>{
     const qs=req.params.qs
+    const{mid,ordered}=await Session.findOne({_id:req.cookies.session})
     console.log('received extra stops')
     console.log('mid',mid)
     console.log(qs,qs.length)
@@ -167,6 +188,11 @@ router.get("/:qs/order", async(req,res)=>{
         ordered.push(mid[p])
     }
     ordered.push(endObj)
+    try{
+        await Session.updateOne({_id:req.cookies.session},{$set:{"ordered":ordered}})
+    }catch(error){
+        console.log('ordered Error',Error)
+    }
     console.log("ordered:",ordered)
     res.send(ordered)
 })
@@ -175,7 +201,7 @@ router.get("/:qs/order", async(req,res)=>{
 router.get("/plan",async(req,res)=>{
     
     //console.log('plan started')
-
+    const{ordered}=await Session.findOne({_id:req.cookies.session})
     //takes mid arr, arranges based on qs
     //iterates through and coordifies, places in order in  middle of coords arr
 
@@ -184,7 +210,7 @@ router.get("/plan",async(req,res)=>{
 
     //decent place for a heap
     let avStops=stops-(ordered.length-2)
-    tripN=new DLL()
+    const tripN=new DLL()
     const prepped=[]
 
     let assignStops=[]
@@ -244,6 +270,12 @@ router.get("/plan",async(req,res)=>{
     for(let stop of prepped){
         tripN.push(stop)
     }
+    try{
+        await Session.updateOne({_id:req.cookies.session},{$set:{"tripN":tripN}})
+    }catch(error){
+        console.log('tripN Error',Error)
+    }
+
     console.log(prepped,tripN)
 
     //because slice returns a shallow copy, it will not update accordingly 
@@ -262,6 +294,10 @@ router.get("/plan",async(req,res)=>{
 
 //no longer nodes!!!
 router.get("/:mode/algoPlan",async (req,res)=>{
+
+    const{tripN,ready}=await Session.findOne({_id:req.cookies.session})
+
+
     const mode=req.params.mode
     console.log("using:",tripN, mode)
     const trip=await plan(tripN,mode)
@@ -272,12 +308,19 @@ router.get("/:mode/algoPlan",async (req,res)=>{
         ready.push(node.val)
         node=node.next
     }
+    try{
+        await Session.updateOne({_id:req.cookies.session},{$set:{"ready":ready}})
+    }catch(error){
+        console.log('trip save error',Error)
+    }
     console.log(ready)
     res.send(ready)
 
 })
 
 router.get('/sync/:index/:qs',async(req,res)=>{
+
+    const{ready}=await Session.findOne({_id:req.cookies.session})
     //this can be done much faster
     console.log('sync called')
     const index=parseInt(req.params.index)
@@ -336,6 +379,11 @@ router.get('/sync/:index/:qs',async(req,res)=>{
         }
         active[type]=setPair(pair,type==='hotels')
     }
+    try{
+        await Session.updateOne({_id:req.cookies.session},{$set:{"ready":ready}})
+    }catch(error){
+        console.log('trip sync error',Error)
+    }
     console.log(active)
     console.log(ready.length)
     res.send(ready)
@@ -344,6 +392,8 @@ router.get('/sync/:index/:qs',async(req,res)=>{
 
 router.get("/tripSave/:id/:tripId",async(req,res)=>{
     console.log('trip save')
+    const{ready}=await Session.findOne({_id:req.cookies.session})
+
     const userID=req.params.id
     const tripId=req.params.tripId
     console.log(userID,tripId)

@@ -43,7 +43,7 @@ const Main=(props)=>{
             return
         }
         (async()=>{
-            const synced=await(axios.get(`https://mitinerary-js.herokuapp.com/select/${activeTrip}`))
+            const synced=await(axios.get(`https://mitinerary-js.herokuapp.com/home/select/${activeTrip}`))
             if(synced){
                 console.log('backend synced')
                 return
@@ -70,7 +70,7 @@ const Main=(props)=>{
             return
         }
         let qsTrip=activeTrip?activeTrip:'0'
-        const success=await axios.get(`https://mitinerary-js.herokuapp.com/tripSave/${props.signIn}/${qsTrip}`)
+        const success=await axios.get(`https://mitinerary-js.herokuapp.com/home/tripSave/${props.signIn}/${qsTrip}`)
         if(success.data){
             console.log('successfully saved')
             setActiveTrip(success.data)

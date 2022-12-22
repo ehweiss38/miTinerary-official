@@ -46,7 +46,7 @@ const AttractionsHome=(props)=>{
                     }
                 }
             }
-            const updated=await axios.get(`https://mitinerary-js.herokuapp.com/sync/${props.selected}/${qs}`)
+            const updated=await axios.get(`https://mitinerary-js.herokuapp.com/home/sync/${props.selected}/${qs}`)
             console.log('backend saved')
             console.log('updated',updated.data)
             props.receiveTrip(updated.data)
