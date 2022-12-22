@@ -21,7 +21,6 @@ const Session=require('../../schema/session')
 
 const router=express.Router()
 
-router.use(cookieParser)
 
 /*
 router.get("/", (req, res)=>
