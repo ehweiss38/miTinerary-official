@@ -17,13 +17,15 @@ function App() {
   const [signIn,setSignIn]=useState(null)
 
 
+  /*
   useEffect(()=>{
     (async()=>{
-      let status=await axios.get('https://mitinerary-js.herokuapp.com/auth/validate')
-      console.log(status.data)
-      setSignIn(status.data._id)
+      console.log('making cookie req')
+      let status=await axios.get('https://mitinerary-js.herokuapp.com/')
     })()
   },[])
+  */
+
 
   useEffect(()=>{
     if(trip){

@@ -31,7 +31,7 @@ const sessionSchema = new mongoose.Schema(
             required:false
         },
         distanceUse:{
-            type:Float32Array,
+            type:Number,
             required:false
         },
         tripN:{

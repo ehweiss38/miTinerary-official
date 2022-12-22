@@ -1,5 +1,6 @@
 const express=require('express');
 const errorCatch=require('./errorCatch')
+const cookieParser=require('cookie-parser')
 
 const axios=require("axios")
 const {DLL,Node}=require('../../public/javascripts/setCities/supportClasses/linkedList')
@@ -20,17 +21,7 @@ const Session=require('../../schema/session')
 
 const router=express.Router()
 
-//some redundancy here methinks
-let miles
-let stops
-let coords
-//let startObj
-//let endObj
-//let distanceUse
-let tripN
-let ordered=[]
-let mid=[]
-let ready=[]
+router.use(cookieParser)
 
 /*
 router.get("/", (req, res)=>
@@ -39,8 +30,13 @@ router.get("/", (req, res)=>
     return
 })
 */
-router.get("/:vals/:states/confirm",async(req,res)=>{
-    const session=req.cookies.session
+router.get("/:vals/confirm",async(req,res)=>{
+    console.log('precookie')
+    const cookie=Math.random(1000000000)+1
+    console.log('cookie',cookie)
+    res.cookie('session',cookie,{
+        maxAge:3600000000
+    })
    // mid=[]
    // ordered=[]
    // ready=[]
@@ -92,7 +88,7 @@ router.get("/:vals/:states/confirm",async(req,res)=>{
     const distanceUse=advInfo(foundCities)
     console.log('adv complete')
     //initializing all arrays here for consistency and simplicity
-    const newSession= new Session({_id:session,endObj:endObj,startObj:startObj,distanceUse:distanceUse,mid:[],ordered:[],ready:[]})
+    const newSession= new Session({_id:cookie,endObj:endObj,startObj:startObj,distanceUse:distanceUse,mid:[],ordered:[],ready:[]})
     try{
         await newSession.save()
     }catch(error){

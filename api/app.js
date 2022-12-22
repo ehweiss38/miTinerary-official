@@ -36,12 +36,13 @@ db.once("open", function () {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
@@ -66,14 +67,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.get("/",(req,res)=>{
-  const cookie=Math.random(1000000000)+1
-  res.cookie('session',cookie,{
-    maxAge:3600000000,
-    secure:true
-  })
-})
 
 app.listen(process.env.PORT || '7000',()=>{
   console.log('Connected!')
