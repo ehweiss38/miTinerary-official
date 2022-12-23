@@ -9,8 +9,13 @@ import axios from "axios";
 import Router from "./components/Router";
 import './css/style.css'
 
+//This is the main component, managing essential state items
 
 function App() {
+  //Trip is used throughout the app, so it it managed in App component
+  //display determines which component to display
+  //signIn determines whether some features are accessible, as well as display of sign in button
+
   const [trip,setTrip]=useState(null)
   //maybe should move trip id here
   const [display,setDisplay]=useState('home')
@@ -26,7 +31,9 @@ function App() {
   },[])
   */
 
-
+  //when a new trip is selected, either generated or saved, it triggers the switch to display mode
+  //The url is changed and a popstate event is triggered to refresh router components
+  //Because the routes are simple in this app, with most of the components being in the trip gen. pipeline, I set routes manually
   useEffect(()=>{
     if(trip){
       console.log('trip received')
@@ -38,9 +45,8 @@ function App() {
     }
   },[trip])
 
-  useEffect(()=>{
 
-  })
+  //various navigation triggers, setting display or values that change display
   const returnHome=()=>{
     setDisplay('home')
   }
@@ -63,6 +69,8 @@ function App() {
 
 
   let current
+
+  //deprecated navigation system
 /*
   if(display==='home'){
     current=<Homepage setAlgo={setAlgo}/>
@@ -74,6 +82,10 @@ function App() {
     current=<Multi signIn={signIn} receiveTrip={receiveTrip}/>
   }
   */
+
+  //router component displays component if url matches path prop
+
+  //AlgoHome: Process for generating new trip; Main: Refers to main component of trip display; Multi: Displays multiple saved trips 
   return(
     <div style={{backgroundImage:`url(${Background})`,height:750,backgroundSize:1500,backgroundPositionX:0,backgroundPositionY:-220,marginBottom:-10}}>
       <Navbar signedIn={signedIn} signIn={signIn} setMulti={setMulti} setAlgo={setAlgo} returnHome={returnHome}/>

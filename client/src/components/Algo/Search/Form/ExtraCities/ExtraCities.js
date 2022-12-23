@@ -6,6 +6,8 @@ class ExtraCities extends React.Component{
     //annoying to convert obj to arr. I think now the most straightforward approach
     state={stopsSelected:[], cityText:"", countryText:"",stateText:null}
 
+
+    //To account for multiple cities of same name, optional state box appears if country is US
     componentDidUpdate(){
         const murica={'USA':1,"US":1,"United States of America":1,"America":1,"United States":1}
         if(this.state.stateText===null&&murica[this.state.countryText]){
@@ -16,6 +18,7 @@ class ExtraCities extends React.Component{
         }
     }
 
+    //controlled text input
     updateText=(val,loc)=>{
         let use=val
         if(loc==='city'){
@@ -38,6 +41,7 @@ class ExtraCities extends React.Component{
 
     //add variable for constant spacing relative to max number of stops
 
+    //Confirms additional stops by checking it exists, adding to array of selected stops
     addStop=async(e)=>{
         console.log('called',this.state.stopsSelected.length)
         e.preventDefault()
@@ -46,8 +50,6 @@ class ExtraCities extends React.Component{
             //add error no more cities
         }
         const found=await this.confirm([this.state.cityText,this.state.countryText,this.state.stopsSelected.length,this.state.stateText])
-        //still have to be validated
-        //wont work rn
 
         //confirm sends back index as string
         if(typeof found==="object"){
@@ -58,9 +60,10 @@ class ExtraCities extends React.Component{
         //add error handling message
         
     }
+
+    //Feature to allow users to change relative order of additional stops. In dev
     shuffle=(i,dir)=>{
         //why isnt this working
-        //wtf is up && up1
         console.log('shuffle',dir)
         let copy=this.state.stopsSelected
         //improve edge cases
@@ -77,7 +80,7 @@ class ExtraCities extends React.Component{
     
     //const eState=eState!==null?<input style={{marginLeft:10,width:75}} className="input is-danger" id="startState" type="text" value={props.locations.eState} onChange={(e)=>{props.setSearch(e.target.value,'eState')}} name="endState" placeholder="State"/>:""
 
-
+    //Confirmation function to confirm cities. Same principal as with start and stop cities, calls same endpoint. Only difference is shorter qs
     async confirm(valPairs){
         let info
         let qs=valPairs[0].trim()+'_'+valPairs[1].trim()+"_"+valPairs[2]+"_"+valPairs[3]
@@ -93,8 +96,7 @@ class ExtraCities extends React.Component{
         console.log(info)
         return info
     }
-    //will add Search to validate
-    //text can extend out
+    //Displays grey box holding added cities, text input to submit. Displays number of available cities
     render(){
         const stateBox=this.state.stateText!==null?<input style={{marginLeft:10,width:75}} className="input is-danger" id="stateText" type="text" value={this.state.stateText} onChange={(e)=>{this.updateText(e.target.value,'state')}} name="state" placeholder="State"/>:""
         console.log('box', stateBox)

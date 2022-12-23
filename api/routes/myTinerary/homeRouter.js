@@ -423,12 +423,20 @@ router.get("/tripSave/:id/:tripId",async(req,res)=>{
 })
 
 router.get('/select/:id',async(req,res)=>{
+
+    const{ready}=await Session.findOne({_id:req.cookies.session})
+
     console.log("Trip find")
     const tripId=req.params.id
     const trip=await Trip.findOne({_id:tripId})
     console.log('trip',trip)
     ready=trip.trip
     console.log('ready',ready,"should match")
+    try{
+        await Session.updateOne({_id:req.cookies.session},{$set:{"ready":ready}})
+    }catch(error){
+        console.log('trip sync error',Error)
+    }
     res.send(true)
     return
 })
