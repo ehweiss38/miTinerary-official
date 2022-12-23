@@ -4,9 +4,12 @@ import Hotels from "./Specific/Hotels";
 import Restaurants from "./Specific/Restaurants";
 import Attractions from "./Specific/Attractions";
 
+//Component makes call to REST API to fetch info about category of attraction
 const Retrieve=(props)=>{
     const[list,setList]=useState(null)
     console.log('render',props.type)
+
+    //type refers to what type of attraction, endpoint makes call accordingly
     useEffect(()=>{
         let controller=new AbortController();
         (async()=>{
@@ -23,6 +26,7 @@ const Retrieve=(props)=>{
         }
     },[])
     
+    //delays rendering of main component until all have loaded, so this signals this component is ready
     useEffect(()=>{
         if(!list){
             return

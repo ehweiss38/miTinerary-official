@@ -91,9 +91,11 @@ const Main=(props)=>{
         }
     }
 
+    //highlights with click
     const highlight=(index)=>{
         setSelected(index)
     }
+    //Determines whether to set individual stop page, or main page. Linked to explore & go back buttons
     const go=(bool,e=false)=>{
         if(e){
             e.stopPropagation()
@@ -102,10 +104,7 @@ const Main=(props)=>{
         setVisit(bool)
     }
 
-    const receiveDisDur=(arr)=>{
-        setMain(arr)
-    }
-
+    //collects directions from map to grab distances and times
     const receiveDirections=(arr)=>{
         setDirections(arr)
     }
@@ -114,6 +113,7 @@ const Main=(props)=>{
     <h3 className="messagePos" style={{color:'red'}}>{message}</h3>:''
 
 
+    //screen to display is location is selected
     if(visit){
         console.log(tripArr,selected)
         return(
@@ -122,6 +122,7 @@ const Main=(props)=>{
             </div>
         )
     }
+    //map with scrolling locations column on sides
     return(
         <div className="card background" style={{marginLeft:50,marginRight:50,marginBottom:10,marginTop:30}}>
             <div className="columns" style={{opacity:1}}>

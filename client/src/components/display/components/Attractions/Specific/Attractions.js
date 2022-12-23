@@ -1,10 +1,14 @@
 import React from "react";
 
+//Produces Attraction info card
+
 const Attractions=(props)=>{
     console.log('Sites',props.attractions)
+    //Removes items that are missing info needed for card
     const filtered=props.sites.filter((place)=>{
         return place.photo&&place.name&&place.subtype[0]&&place.location_id
     })
+    //Card has button to add to trip/map, and button to fetch trip advisor page
     const display=filtered.map((place)=>{
         const button=props.attractions['attractions'][place.name]?
             <button onClick={()=>{props.remove(place,'attractions')}} className="plus-minus"><i style={{fontSize:23}}className="fa-solid fa-minus has-text-success"></i></button>:

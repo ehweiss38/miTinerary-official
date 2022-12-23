@@ -4,6 +4,7 @@ import Retrieve from "./Retrieve";
 
 const AttractionsHome=(props)=>{
     console.log(props.loc)
+    //tracks all attractions that have been added so they can be saved
     let activeH=props.loc.hotels?props.loc.hotels:{}
     let activeR=props.loc.restaurants?props.loc.restaurants:{}
     let activeA=props.loc.attractions?props.loc.attractions:{}
