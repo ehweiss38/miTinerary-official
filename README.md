@@ -2,7 +2,7 @@
 
 Welcome to miTinerary!
 
-This is an algorithmic-travel planning app, inspired by me trying to plan a family-vacation to Europe. I had a decent idea of a few destinations I wanted
+This is an algorithmic-travel planning app, inspired by my trying to plan a family-vacation to Europe. I had a decent idea of a few destinations I wanted
 to visit, but was overwhelmed by the number of countries and cities we could stop at.
 
 The idea of this app, is that by providing two endpoints, a trip (or itinerary) will be generated between them. Users are able to specify however many stops they
