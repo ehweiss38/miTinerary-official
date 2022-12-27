@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
+var session=require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -36,7 +37,7 @@ db.once("open", function () {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors({ credentials: true }));
+app.use(cors({ credentials: true, origin:['http://localhost:3000','https://mitinerary.netlify.app']}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -67,6 +68,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(session({
+  resave:false,
+  saveUnitialized:false.valueOf,
+  secret:"sessions",
+  cookie:{
+    maxAge:1000*60*60,
+    sameSite:'none',
+    secure:true
+  }
+}))
 
 app.listen(process.env.PORT || '7000',()=>{
   console.log('Connected!')

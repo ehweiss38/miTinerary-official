@@ -1,6 +1,5 @@
 const express=require('express');
-const errorCatch=require('./errorCatch')
-const cookieParser=require('cookie-parser')
+const errorCatch=require('./errorCatch') 
 
 const axios=require("axios")
 const {DLL,Node}=require('../../public/javascripts/setCities/supportClasses/linkedList')
@@ -30,12 +29,13 @@ router.get("/", (req, res)=>
 })
 */
 router.get("/:vals/confirm",async(req,res)=>{
-    console.log('precookie')
-    const cookie=Math.random(1000000000)+1
-    console.log('cookie',cookie)
-    res.cookie('session',cookie,{
-        maxAge:3600000000
-    })
+   // console.log('precookie')
+    //const cookie=""+Math.random(1000000000)+1
+    //console.log('cookie',cookie)
+    //res.cookie('session',cookie,{
+        //domain:".localhost:3000"
+        //maxAge:3600000000
+   // })
    // mid=[]
    // ordered=[]
    // ready=[]
@@ -87,13 +87,19 @@ router.get("/:vals/confirm",async(req,res)=>{
     const distanceUse=advInfo(foundCities)
     console.log('adv complete')
     //initializing all arrays here for consistency and simplicity
+    req.session.startObj=startObj
+    req.session.endObj=endObj
+    req.session.distanceUse=distanceUse
+    req.session.stops=stops
+    /*
     const newSession= new Session({_id:cookie,endObj:endObj,startObj:startObj,distanceUse:distanceUse,mid:[],ordered:[],ready:[]})
     try{
         await newSession.save()
     }catch(error){
         console.log('saving error',error)
     }
-    
+    console.log('save complete')
+    */
     res.send(
         [foundCities,distanceUse]
     )
@@ -102,7 +108,9 @@ router.get("/:extraCities/extra",async(req,res)=>{
     //mid added above
 
     //retrieving here offers more flexibilty down the line
-    const{mid}=await Session.findOne({_id:req.cookies.session})
+    //const {mid}=await Session.findOne({_id:req.cookies.session})
+
+    const mid=[]
 
     //could be written as reuable but idk if it is even worth it
     console.log('extraaaa',req.params.extraCities)
@@ -123,11 +131,14 @@ router.get("/:extraCities/extra",async(req,res)=>{
     mid.push(info)
     console.log('here is info',info)
     console.log('mid',mid)
+    req.session.mid=mid
+    /*
     try{
         await Session.updateOne({_id:req.cookies.session},{$set:{"mid":mid}})
     }catch(error){
         console.log('save Error',Error)
     }
+    */
     res.send(
         info
     )
@@ -154,8 +165,9 @@ router.get("/calc/:foundCities",async(req,res)=>{
 //to work with multiple cities, has to sort by distance from first city. Also, has to adjust validity measures accordingly
 
 router.get("/:qs/order", async(req,res)=>{
-    const qs=req.params.qs
-    const{mid,ordered}=await Session.findOne({_id:req.cookies.session})
+    //const qs=req.params.qs
+    //const{mid,ordered}=await Session.findOne({_id:req.cookies.session})
+    const {mid}=req.session
     console.log('received extra stops')
     console.log('mid',mid)
     console.log(qs,qs.length)
@@ -174,6 +186,7 @@ router.get("/:qs/order", async(req,res)=>{
         }
         i++
     }
+    const ordered=[]
     console.log('pos',pos)
     ordered.push(startObj)
     //start is undefined, idk why. WIll push objects instead, but i still want to know
@@ -183,11 +196,14 @@ router.get("/:qs/order", async(req,res)=>{
         ordered.push(mid[p])
     }
     ordered.push(endObj)
+    req.session.ordered=ordered
+    /*
     try{
         await Session.updateOne({_id:req.cookies.session},{$set:{"ordered":ordered}})
     }catch(error){
         console.log('ordered Error',Error)
     }
+    */
     console.log("ordered:",ordered)
     res.send(ordered)
 })
@@ -196,10 +212,10 @@ router.get("/:qs/order", async(req,res)=>{
 router.get("/plan",async(req,res)=>{
     
     //console.log('plan started')
-    const{ordered}=await Session.findOne({_id:req.cookies.session})
+    //const{ordered}=await Session.findOne({_id:req.cookies.session})
     //takes mid arr, arranges based on qs
     //iterates through and coordifies, places in order in  middle of coords arr
-
+    const {ordered,stops}=req.session
 
     //logic is outdated, everything already checked
 
@@ -265,12 +281,16 @@ router.get("/plan",async(req,res)=>{
     for(let stop of prepped){
         tripN.push(stop)
     }
+
+    req.session.tripN=tripN
+
+    /*
     try{
         await Session.updateOne({_id:req.cookies.session},{$set:{"tripN":tripN}})
     }catch(error){
         console.log('tripN Error',Error)
     }
-
+    */
     console.log(prepped,tripN)
 
     //because slice returns a shallow copy, it will not update accordingly 
@@ -374,11 +394,14 @@ router.get('/sync/:index/:qs',async(req,res)=>{
         }
         active[type]=setPair(pair,type==='hotels')
     }
+    req.session.ready=ready
+    /*
     try{
         await Session.updateOne({_id:req.cookies.session},{$set:{"ready":ready}})
     }catch(error){
         console.log('trip sync error',Error)
     }
+    */
     console.log(active)
     console.log(ready.length)
     res.send(ready)
@@ -387,7 +410,9 @@ router.get('/sync/:index/:qs',async(req,res)=>{
 
 router.get("/tripSave/:id/:tripId",async(req,res)=>{
     console.log('trip save')
-    const{ready}=await Session.findOne({_id:req.cookies.session})
+    //const{ready}=await Session.findOne({_id:req.cookies.session})
+
+    const {ready}=req.session
 
     const userID=req.params.id
     const tripId=req.params.tripId
@@ -421,6 +446,8 @@ router.get("/tripSave/:id/:tripId",async(req,res)=>{
     return
 
 })
+
+//Pick up here
 
 router.get('/select/:id',async(req,res)=>{
 
