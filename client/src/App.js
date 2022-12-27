@@ -73,7 +73,7 @@ function App() {
   }
   */
   return(
-    <div style={{backgroundImage:`url(${Background})`,height:750,backgroundSize:1500,backgroundPositionX:0,backgroundPositionY:-220,marginBottom:-10}}>
+    <div className="backgroundImg" style={{backgroundImage:`url(${Background})`}}>
       <Navbar signedIn={signedIn} signIn={signIn} setMulti={setMulti} setAlgo={setAlgo} returnHome={returnHome}/>
       <Router path='/'>
         <Homepage setAlgo={setAlgo}/>

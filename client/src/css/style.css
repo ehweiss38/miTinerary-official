@@ -170,4 +170,12 @@ nav {
 
 .messagePos {
   margin-left: 32.5vw;
+}
+
+.backgroundImg {
+  background-size: 200vh;
+  background-size: 100vw;
+  background-position-x: 0px;
+  background-position-y: -200px;
+  margin-bottom: -40vh;
 }/*# sourceMappingURL=style.css.map */
