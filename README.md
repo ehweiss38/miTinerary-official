@@ -2,7 +2,7 @@
 
 Welcome to miTinerary!
 
-This is an algorithmic-travel planning app, inspired by me trying to plan a family-vacation to Europe. I had a decent idea of a few destinations I wanted
+This is an algorithmic-travel planning app, inspired by my trying to plan a family-vacation to Europe. I had a decent idea of a few destinations I wanted
 to visit, but was overwhelmed by the number of countries and cities we could stop at.
 
 The idea of this app, is that by providing two endpoints, a trip (or itinerary) will be generated between them. Users are able to specify however many stops they
@@ -21,3 +21,5 @@ I have a lot of plans for miTinerary, and hope to add consideration for geograph
 over their trips. I also aim to add support for rail-based travel.
 
 If you would like to give miTineray a try, head to https://mitinerary.netlify.app/ ! Use it to plan a trip, look for new restaurants, or just explore!
+
+Note: Improved REST API branch should be live very shortly. Improves volume of traffic app can accomodate, as well as detailed comments. Give it a look!
