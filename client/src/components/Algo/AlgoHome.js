@@ -8,7 +8,7 @@ class AlgoHome extends React.Component{
     setValues=async(stops,valPairs,states)=>{
         console.log('submitted')
         console.log(valPairs)
-        const req=await axios.get(`https://mitinerary-js.herokuapp.com/${valPairs}/${states}/confirm`)
+        const req=await axios.get(`https://mitinerary-js.herokuapp.com/${valPairs}/confirm`)
         console.log(req)
         if(typeof req.data==="string"||typeof req.data[0]==="string"){
             console.log("bad",req)
