@@ -14,7 +14,7 @@ class AlgoHome extends React.Component{
     setValues=async(stops,valPairs)=>{
         console.log('submitted')
         console.log(valPairs)
-        const req=await axios.get(`https://mitinerary-js.herokuapp.com/home/${valPairs}/confirm`, {withCredentials:true,credentials: 'include'})
+        const req=await axios.get(`https://mitinerary-js.herokuapp.com/home/home/${valPairs}/confirm`, {withCredentials:true,credentials: 'include'})
         console.log(req)
         //If it runs correctly, it sends back an array of objects. If error, it sends back city that produced error as string
         if(typeof req.data==="string"||typeof req.data[0]==="string"){
