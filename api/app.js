@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
-app.use('/',homeRouter);
+app.use('/home',homeRouter);
 app.use('/attractions',attractionsRouter);
 app.use('/auth',signInRouter);
 app.use('/saved',savedRouter)

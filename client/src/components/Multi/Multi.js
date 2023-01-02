@@ -10,7 +10,7 @@ const Multi=(props)=>{
         let controller=new AbortController();
         (async()=>{
             console.log('running')
-            const saved=await axios.get((`https://mitinerary-js.herokuapp.com/saved/trips/${props.signIn}`))
+            const saved=await axios.get(`https://mitinerary-js.herokuapp.com/saved/trips/${props.signIn}`)
             console.log('multi response',saved.data)
             controller=null
             setSaved(saved.data)

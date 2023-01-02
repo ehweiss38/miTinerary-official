@@ -8,7 +8,7 @@ class AlgoHome extends React.Component{
     setValues=async(stops,valPairs,states)=>{
         console.log('submitted')
         console.log(valPairs)
-        const req=await axios.get(`https://mitinerary-js.herokuapp.com/${valPairs}/confirm`)
+        const req=await axios.get(`https://mitinerary-js.herokuapp.com/home/${valPairs}/confirm`)
         console.log(req)
         if(typeof req.data==="string"||typeof req.data[0]==="string"){
             console.log("bad",req)
@@ -27,7 +27,7 @@ class AlgoHome extends React.Component{
         this.setState({mode:mode})
     }
     launchAlgo=async()=>{
-        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/${this.state.mode}/algoPlan`)
+        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/home/${this.state.mode}/algoPlan`)
         console.log("this heres the trip",trip.data[0])
         this.props.receiveTrip(trip.data)
         return
@@ -47,10 +47,10 @@ class AlgoHome extends React.Component{
         }
         //want to set this to app component
         //is ordered even needed?Maybe as back up
-        const ordered=await axios.get(`https://mitinerary-js.herokuapp.com/${qs}/order`)
+        const ordered=await axios.get(`https://mitinerary-js.herokuapp.com/home/${qs}/order`)
         //have to plan first implement as function rather than req 
         console.log("ordered",ordered)
-        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/plan`)
+        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/home/plan`)
         //here is the issue: ordered returns the full list
 
         //have to set up DLL here instead of in other doc
