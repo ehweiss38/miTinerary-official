@@ -38,11 +38,34 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors({ credentials: true, origin:['http://localhost:3000','https://mitinerary.netlify.app']}));
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'https://mitinerary.netlify.app'); // update to match the domain you will make the request from
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  resave:false,
+  saveUnitialized:false,
+  secret:"session",
+  secure:true,
+  cookie:{
+    httpOnly:false,
+    path:'/'
+  }
+}))
 
 
 app.use('/index', indexRouter);
@@ -69,16 +92,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(session({
-  resave:false,
-  saveUnitialized:false.valueOf,
-  secret:"sessions",
-  cookie:{
-    maxAge:1000*60*60,
-    sameSite:'none',
-    secure:true
-  }
-}))
+
+
 
 app.listen(process.env.PORT || '7000',()=>{
   console.log('Connected!')

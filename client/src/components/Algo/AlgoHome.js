@@ -2,9 +2,13 @@ import React from "react";
 import axios from "axios"
 import AlgoSearchHome from "./Search/AlgoSearchHome";
 
+axios.defaults.withCredentials=true
+
 //This is main component for algorithm related components, controlling user input components so as to collect necessaary info
 
 class AlgoHome extends React.Component{
+
+
     //what does the stops state do? Backup I guess
     state={mid:null,data:null,bad:null,outline:null,stops:0,mode:'eq',missing:false}
 
@@ -14,7 +18,7 @@ class AlgoHome extends React.Component{
     setValues=async(stops,valPairs)=>{
         console.log('submitted')
         console.log(valPairs)
-        const req=await axios.get(`https://mitinerary-js.herokuapp.com/home/home/${valPairs}/confirm`, {withCredentials:true,credentials: 'include'})
+        const req=await axios.get(`https://mitinerary-js.herokuapp.com/home/${valPairs}/confirm`, {withCredentials:true})
         console.log(req)
         //If it runs correctly, it sends back an array of objects. If error, it sends back city that produced error as string
         if(typeof req.data==="string"||typeof req.data[0]==="string"){
@@ -37,7 +41,7 @@ class AlgoHome extends React.Component{
     }
     //sends go ahead to run algo on backend. Backend has copy of trip which it uses, so dont have to send
     launchAlgo=async()=>{
-        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/home/${this.state.mode}/algoPlan`,{withCredentials: true,credentials: 'include'})
+        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/home/${this.state.mode}/algoPlan`,{withCredentials: true})
         console.log("this heres the trip",trip.data[0])
         this.props.receiveTrip(trip.data)
         return
@@ -56,11 +60,11 @@ class AlgoHome extends React.Component{
             qs+="_"
         }
         //Rearranges stops in the event user changed their order. Informs backend of order on front end
-        const ordered=await axios.get(`https://mitinerary-js.herokuapp.com/home/${qs}/order`,{withCredentials: true,credentials: 'include'})
+        const ordered=await axios.get(`https://mitinerary-js.herokuapp.com/home/${qs}/order`,{withCredentials: true})
         //have to plan first implement as function rather than req 
         console.log("ordered",ordered)
         //Tells back end to create a doubly linked list, each node containing info on how far until next pre-determined stop, and how many stops it will make before then
-        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/home/plan`,{withCredentials: true,credentials: 'include'})
+        const trip=await axios.get(`https://mitinerary-js.herokuapp.com/home/plan`,{withCredentials: true})
 
         /*BASIC OUTLINE OF PLAN:
             checks distance from starting city to each added city

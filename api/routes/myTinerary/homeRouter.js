@@ -29,6 +29,7 @@ router.get("/", (req, res)=>
 })
 */
 router.get("/:vals/confirm",async(req,res)=>{
+    console.log(req.session,req.sessionID)
    // console.log('precookie')
     //const cookie=""+Math.random(1000000000)+1
     //console.log('cookie',cookie)
@@ -87,10 +88,13 @@ router.get("/:vals/confirm",async(req,res)=>{
     const distanceUse=advInfo(foundCities)
     console.log('adv complete')
     //initializing all arrays here for consistency and simplicity
-    req.session.startObj=startObj
-    req.session.endObj=endObj
-    req.session.distanceUse=distanceUse
-    req.session.stops=stops
+    if(startObj&&endObj){
+        req.session.startObj=startObj
+        req.session.endObj=endObj
+        req.session.distanceUse=distanceUse
+        req.session.stops=stops
+        req.session.save()
+    }
     /*
     const newSession= new Session({_id:cookie,endObj:endObj,startObj:startObj,distanceUse:distanceUse,mid:[],ordered:[],ready:[]})
     try{
@@ -100,6 +104,7 @@ router.get("/:vals/confirm",async(req,res)=>{
     }
     console.log('save complete')
     */
+   console.log('session',req.session)
     res.send(
         [foundCities,distanceUse]
     )
@@ -132,6 +137,7 @@ router.get("/:extraCities/extra",async(req,res)=>{
     console.log('here is info',info)
     console.log('mid',mid)
     req.session.mid=mid
+    req.session.save()
     /*
     try{
         await Session.updateOne({_id:req.cookies.session},{$set:{"mid":mid}})
@@ -165,9 +171,11 @@ router.get("/calc/:foundCities",async(req,res)=>{
 //to work with multiple cities, has to sort by distance from first city. Also, has to adjust validity measures accordingly
 
 router.get("/:qs/order", async(req,res)=>{
-    //const qs=req.params.qs
+    const qs=req.params.qs
     //const{mid,ordered}=await Session.findOne({_id:req.cookies.session})
-    const {mid}=req.session
+    console.log("session----->",req.session,req.sessionID)
+    const {mid,startObj,endObj}=req.session
+    console.log('s',startObj,'e',endObj)
     console.log('received extra stops')
     console.log('mid',mid)
     console.log(qs,qs.length)
@@ -204,6 +212,7 @@ router.get("/:qs/order", async(req,res)=>{
         console.log('ordered Error',Error)
     }
     */
+   req.session.save()
     console.log("ordered:",ordered)
     res.send(ordered)
 })

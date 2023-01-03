@@ -1,7 +1,9 @@
 import React from "react";
 import Buttons from "./Buttons/Buttons";
 
+
 class Homepage extends React.Component{
+    
     render(){
         return(
             <section className="hero is-danger">
