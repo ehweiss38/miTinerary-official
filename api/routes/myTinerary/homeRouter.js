@@ -39,7 +39,7 @@ router.get("/", (req, res)=>{
     res.send('finally')
     return
 })
-router.get("/:vals/:states/confirm",async(req,res)=>{
+router.get("/:vals/confirm",async(req,res)=>{
     mid=[]
     ordered=[]
     ready=[]
