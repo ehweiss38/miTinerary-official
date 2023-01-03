@@ -7,10 +7,10 @@ const Endpoints=(props)=>{
             return <h3 style={{color:'red'}}>Please enter a non-zero number</h3>
         }
     }
-    const sState=props.locations.sState!==null?<input style={{marginLeft:445,marginTop:8,width:65}} className="input is-danger" id="startState" type="text" value={props.locations.sState} onChange={(e)=>{props.setSearch(e.target.value,'sState')}} name="startState" placeholder="State"/>:""
-    const eState=props.locations.eState!==null?<input style={{marginLeft:445,marginTop:8,width:65}} className="input is-danger" id="startState" type="text" value={props.locations.eState} onChange={(e)=>{props.setSearch(e.target.value,'eState')}} name="endState" placeholder="State"/>:""
+    const sState=props.locations.sState!==null?<input style={{marginLeft:380,marginTop:8,width:65,position:'absolute'}} className="input is-danger" id="startState" type="text" value={props.locations.sState} onChange={(e)=>{props.setSearch(e.target.value,'sState')}} name="startState" placeholder="State"/>:""
+    const eState=props.locations.eState!==null?<input style={{marginLeft:380,marginTop:8,width:65,position:'absolute'}} className="input is-danger" id="startState" type="text" value={props.locations.eState} onChange={(e)=>{props.setSearch(e.target.value,'eState')}} name="endState" placeholder="State"/>:""
     const msg=(val)=>{
-        return props.bad&&props.bad===val?<h3 style={{color:'red'}}>Sorry, city not found</h3>:""
+        return props.bad&&props.bad===val?<h3 style={{color:'red',marginLeft:-45,marginTop:8}}>Sorry, city not found</h3>:""
     }
     return(
         <React.Fragment>
@@ -25,8 +25,10 @@ const Endpoints=(props)=>{
                             <input style={{width:250}} className="input is-danger" id="startpoint" type="text" value={props.locations.startCity} onChange={(e)=>{props.setSearch(e.target.value,'startCity')}} name="startpoint" placeholder="Starting City"/>
                             <span style={{padding:5}}></span>
                             <input style={{width:250}} size="50" className="input is-danger" id="startCountry" type="text" value={props.locations.startCountry} onChange={(e)=>{props.setSearch(e.target.value,'startCountry')}} name="startCountry" placeholder="Starting Country"/>
-                            {sState}
-                            {msg('0')}
+                            <div className='horizontal'>
+                                {msg('0')}
+                                {sState}
+                            </div>
                         </div>
                         <br/>
                         <label>Ending City</label>
@@ -34,8 +36,10 @@ const Endpoints=(props)=>{
                             <input style={{width:250}} className="input is-danger" id="endpoint" type="text" value={props.locations.endCity} onChange={(e)=>{props.setSearch(e.target.value,'endCity')}} name="endpoint" placeholder="Ending City"/>
                             <span style={{padding:5}}></span>
                             <input style={{width:250}} className="input is-danger" id="endCountry" type="text"value={props.locations.endCountry} onChange={(e)=>{props.setSearch(e.target.value,'endCountry')}} name="endCountry" placeholder="Ending Country"/>
-                            {eState}
+                            <div className='horizontal'>
                             {msg('1')}
+                            {eState}
+                            </div>
                         </div>
                         <br/>
                         <div className="field" style={{width:185}}>
