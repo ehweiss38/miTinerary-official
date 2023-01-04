@@ -32,17 +32,13 @@ db.once("open", function () {
 });
 
 
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('trust proxy',1)
 
 app.use(cors({ credentials: true, origin:['http://localhost:3000','https://mitinerary.netlify.app']}));
 
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", 'https://mitinerary.netlify.app'); // update to match the domain you will make the request from
@@ -60,10 +56,11 @@ app.use(session({
   resave:false,
   saveUnitialized:false,
   secret:"session",
-  secure:true,
+  name:'MitinerarySessionCookie',
   cookie:{
-    httpOnly:false,
-    path:'/'
+    sameSite:'none',
+    secure:process.env.NODE_ENV==='production',
+    httpOnly:false
   }
 }))
 
