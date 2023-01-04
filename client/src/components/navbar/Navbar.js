@@ -65,7 +65,7 @@ const Navbar=(props)=>{
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                <a className="button is-dark">Github</a>
+                                <a className="button is-dark" href="https://github.com/ehweiss38" target="_blank">Github</a>
                                 {button}
                             </div>
                         </div>
