@@ -1,4 +1,16 @@
 # miTinerary-official
+*****
+NOTE 2 Years Later:
+
+Looking back on this project two years later, I realize how much is wrong with it, and how far I have come as dev since. There are a lot of issues here, especially with scale, application state, cost-management, test coverage, organization etc. However, at the same time, there are some solid ideas that still have further potential.
+
+I have started to redevelop this project, massively overhauling the codebase in an effort to give miTinerary the platform it deserves. When it is done, I will make the new repo public. My main goal is to improve scalability, as well as more efficiently manage the costs associated witth running the application. I think this should be a great learning experience, especially in that it will give me opportunity to reflect on my growth and maturation as a developer. 
+
+I am leaving this repo as is, since I feel it represents a foundational stage in my journey, even if it has some missteps. 
+
+Stay tuned!
+
+*****
 
 Welcome to miTinerary!
 
